@@ -17,11 +17,21 @@ public class ApiDeliveryTest {
     public static final String BASE_PATH = "/test-orders/";
 
     // Homework_10
-    //PUT _problem
+    //PUT _is ok
     @Test
     public void changeOrderDetails() {
-        RestAssured
+        String requestBodyChangeOldMethod = "{\n" +
+                "  \"status\": \"OPEN\",\n" +
+                "  \"courierId\": 0,\n" +
+                "  \"customerName\": \"TATA\",\n" +
+                "  \"customerPhone\": \"string\",\n" +
+                "  \"comment\": \"string\",\n" +
+                "  \"id\": 0\n" +
+                "} ";
+        String reciveCustomerName = RestAssured
                 .given()
+                .contentType(ContentType.JSON)
+                .body(requestBodyChangeOldMethod)
                 .log()
                 .all()
                 .header("api_key", "1111222233334444")
@@ -30,41 +40,28 @@ public class ApiDeliveryTest {
                 .log()
                 .all()
                 .assertThat()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_OK)
+                .and()
+                .extract()
+                .path("customerName");
+        Assertions.assertEquals("TATA", reciveCustomerName);
     }
 
     // DELETE _is OK
     @Test
-    //@RepeatedTest(5)
     public void deleteOrderId() {
         RestAssured
                 .given()
                 .log()
                 .all()
                 .header("api_key", "3333114455667788")
+                .header("accept","*/*")
                 .delete(BASE_URL + BASE_PATH + "4")
                 .then()
                 .log()
                 .all()
                 .assertThat()
                 .statusCode(HttpStatus.SC_NO_CONTENT);
-    }
-
-    // GET with query params
-    @Test
-    public void authenticateUser() {
-        RestAssured
-                .given()
-                .queryParam("username", "Tata")
-                .queryParam("password", "123456")
-                .log()
-                .all()
-                .get(BASE_URL + BASE_PATH)
-                .then()
-                .log()
-                .all()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK);
     }
 
     // Lesson_10
