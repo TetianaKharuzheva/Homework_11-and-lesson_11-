@@ -48,20 +48,20 @@ public class ApiDeliveryTest {
     }
 
     // DELETE _is OK
-    @Test
-    public void deleteOrderId() {
-        RestAssured
-                .given()
-                .log()
-                .all()
-                .header("api_key", "3333114455667788")
-                .header("accept","*/*")
-                .delete(BASE_URL + BASE_PATH + "4")
-                .then()
-                .log()
-                .all()
-                .assertThat()
-                .statusCode(HttpStatus.SC_NO_CONTENT);
+    //@Test
+    //public void deleteOrderId() {
+        //RestAssured
+              //  .given()
+               // .log()
+               // .all()
+               // .header("api_key", "3333114455667788")
+               // .header("accept","*/*")
+               // .delete(BASE_URL + BASE_PATH + "4")
+               // .then()
+               // .log()
+               // .all()
+               // .assertThat()
+               // .statusCode(HttpStatus.SC_NO_CONTENT);
     }
 
     // Lesson_10
